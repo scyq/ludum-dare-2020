@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://Art/BackGround/Background.png" type="Texture" id=1]
 [ext_resource path="res://Art/Table/t6.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Art/Table/t5.png" type="Texture" id=10]
 [ext_resource path="res://Script/MainNode.gd" type="Script" id=11]
 [ext_resource path="res://NodeAssets/CardBase.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Art/Font/HeartbitXX2Px.ttf" type="DynamicFontData" id=13]
 
 [sub_resource type="TileSet" id=1]
 0/name = "t1.png 0"
@@ -222,6 +223,86 @@
 8/shapes = [  ]
 8/z_index = 0
 
+[sub_resource type="DynamicFont" id=2]
+size = 180
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=3]
+size = 130
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 150
+font_data = ExtResource( 13 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 100
+font_data = ExtResource( 13 )
+
+[sub_resource type="Animation" id=5]
+resource_name = "Pop"
+length = 1.5
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("EndPanel:modulate:r")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.5 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("EndPanel:modulate:g")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.5 )
+}
+tracks/2/type = "bezier"
+tracks/2/path = NodePath("EndPanel:modulate:b")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.5 )
+}
+tracks/3/type = "bezier"
+tracks/3/path = NodePath("EndPanel:modulate:a")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0.941176, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.5 )
+}
+tracks/4/type = "bezier"
+tracks/4/path = NodePath("EndPanel:rect_scale:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.5 )
+}
+tracks/5/type = "bezier"
+tracks/5/path = NodePath("EndPanel:rect_scale:y")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"points": PoolRealArray( 0.5, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.5 )
+}
+
 [node name="Table" type="Node2D"]
 script = ExtResource( 11 )
 
@@ -266,3 +347,76 @@ margin_left = 1250.0
 margin_top = 400.0
 margin_right = 1250.0
 margin_bottom = 400.0
+
+[node name="Counter" type="Label" parent="."]
+margin_left = 247.839
+margin_top = 169.914
+margin_right = 1701.84
+margin_bottom = 332.914
+custom_fonts/font = SubResource( 2 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "Make the Cards Same"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="EndPanel" type="Panel" parent="."]
+visible = false
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 101.426
+margin_top = -16.321
+margin_right = 1804.43
+margin_bottom = 1033.68
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 850, 450 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Words" type="Label" parent="EndPanel"]
+margin_left = 64.0
+margin_top = 54.0
+margin_right = 1685.0
+margin_bottom = 630.0
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Life is a endless loop.
+But we can still find pattern in it.
+Persevere and fight for your dreams.
+Break the damn loop."
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Scores" type="Label" parent="EndPanel"]
+margin_left = 65.6996
+margin_top = 647.792
+margin_right = 778.7
+margin_bottom = 789.792
+custom_fonts/font = SubResource( 4 )
+text = "Tried Times : "
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="EndPanel"]
+margin_left = 599.848
+margin_top = 910.993
+margin_right = 1063.85
+margin_bottom = 1000.99
+custom_fonts/font = SubResource( 6 )
+text = "Back to Menu"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Popup" type="AnimationPlayer" parent="."]
+anims/Pop = SubResource( 5 )
+[connection signal="pressed" from="CardBase0" to="." method="_on_CardBase0_pressed"]
+[connection signal="pressed" from="CardBase1" to="." method="_on_CardBase1_pressed"]
+[connection signal="pressed" from="CardBase2" to="." method="_on_CardBase2_pressed"]
+[connection signal="pressed" from="EndPanel/Button" to="." method="_on_Button_pressed"]

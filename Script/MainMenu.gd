@@ -5,11 +5,9 @@ var main_node = null
 func _ready():
 	main_node = preload("res://NodeAssets/MainNode.tscn")
 
-func _on_StartBtn_pressed_(): 
+func _on_StartBtn_pressed():
 	get_tree().change_scene_to(main_node)
 
-func _process(delta):
-	if $StartBtn.pressed:
-		_on_StartBtn_pressed_()
-	if $ExitBtn.pressed:
-		get_tree().quit()
+
+func _on_ExitBtn_pressed():
+	get_tree().quit() # Replace with function body.

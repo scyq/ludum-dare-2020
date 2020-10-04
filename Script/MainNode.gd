@@ -73,6 +73,9 @@ var card2_info = {
 	"number" : null
 }
 
+var type_max = null
+var cnt = null
+var win_number = []
 var rng = RandomNumberGenerator.new()
 
 func _get_random_number_():
@@ -81,12 +84,12 @@ func _get_random_number_():
 	return rng.randi_range(1, 15)
 	
 # joker determined by number
-func _get_random_type_():
+func _get_random_type_(_type_max):
 	#	0 spades
 	#	1 hearts
 	#	2 clubs
 	#	3 diamonds
-	return rng.randi_range(0, 3)
+	return rng.randi_range(0, _type_max)
 	
 func _change_card_(number: int, type: int, card_id: int, texture):
 	if card_id == 0:
@@ -112,8 +115,9 @@ func _change_card_(number: int, type: int, card_id: int, texture):
 		$CardBase2/Card.set_texture(texture)
 	
 
-
 func _set_Card(number, type, card_id):
+	if number == 0:
+		number += 1
 	var search_name = null
 	var real_type = null
 	if type == 0:
@@ -144,10 +148,11 @@ func _set_Card(number, type, card_id):
 		search_name = "joker_pre"
 	_change_card_(number, type, card_id, card_dict[search_name])
 
-
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	type_max = 0
 	rng.randomize()
+	cnt = 0
 	card_dict["_ace_diamonds"] = _ace_diamonds
 	card_dict["_ace_clubs"] = _ace_clubs
 	card_dict["_ace_hearts"] = _ace_hearts
@@ -202,12 +207,67 @@ func _ready():
 	card_dict["_king_spades"] = _king_spades
 	card_dict["joker_pre"] = joker_pre
 	card_dict["black_joker_pre"] = black_joker_pre
-	_set_Card(_get_random_number_(), _get_random_type_(), 0)
-	_set_Card(_get_random_number_(), _get_random_type_(), 1)
-	_set_Card(_get_random_number_(), _get_random_type_(), 2)
+	_set_Card(_get_random_number_(), _get_random_type_(type_max), 0)
+	_set_Card(_get_random_number_(), _get_random_type_(type_max), 1)
+	_set_Card(_get_random_number_(), _get_random_type_(type_max), 2)
 	
 	
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _check_win():
+	var number_right = false
+	var type_right = false
+	var c0_number = card0_info["number"]
+	var c0_type = card0_info["type"]
+	var c1_number = card1_info["number"]
+	var c1_type = card1_info["type"]
+	var c2_number = card2_info["number"]
+	var c2_type = card2_info["type"]
+	if c0_number == c1_number && c0_number == c2_number:
+		number_right = true
+	if c0_type == c1_type && c0_type == c2_type:
+		type_right = true
+	if number_right && type_right:
+		return c0_number
+	else:
+		return -1
 
+func _after_press(current_num, current_type, card_id):
+	var check_id = _check_win()
+	if check_id != -1:
+		if type_max > 3:
+			$Counter.set_text("Still in Loop")
+			type_max += 1
+			_set_Card(_get_random_number_(), _get_random_type_(type_max), 0)
+			_set_Card(_get_random_number_(), _get_random_type_(type_max), 1)
+			_set_Card(_get_random_number_(), _get_random_type_(type_max), 2)
+		else:
+			$Counter.set_text("You Break the Loop")
+			var temp_cnt = cnt as String
+			$EndPanel/Scores.set_text("Tried Times : " + temp_cnt)
+			$EndPanel.visible = true
+			$Popup.play("Pop")
+	else:
+		cnt += 1
+		var temp_cnt = cnt as String
+		$Counter.set_text("Counts : " + temp_cnt)
+		_set_Card((current_num + cnt - 1) % 16, (current_type + cnt - 1) % (type_max + 1), card_id)
+	
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+# warning-ignore:unused_argument
+func _process(delta):
+	pass
+	
+
+
+func _on_CardBase0_pressed():
+	_after_press(card0_info["number"], card0_info["type"], 0)
+
+func _on_CardBase1_pressed():
+	_after_press(card1_info["number"], card1_info["type"], 1)
+
+func _on_CardBase2_pressed():
+	_after_press(card2_info["number"], card2_info["type"], 2)
+
+
+func _on_Button_pressed():
+	get_tree().change_scene("res://NodeAssets/MainMenu.tscn")
