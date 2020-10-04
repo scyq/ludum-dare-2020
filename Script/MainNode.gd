@@ -55,17 +55,40 @@ var _king_spades = preload("res://Art/Cards/king_spades.png")
 var joker_pre = preload("res://Art/Cards/joker.png")
 var black_joker_pre = preload("res://Art/Cards/joker_white.png")
 
+
+var rng = RandomNumberGenerator.new()
+
+func _get_random_number_():
+	# 14 black joker
+	# 15 red joker
+	return rng.randi_range(1, 15)
+	
+func _get_random_type_():
+	#	0 spades
+	#	1 hearts
+	#	2 clubs
+	#	3 diamonds
+	return rng.randi_range(0, 4)
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$CardBase0/theCard.set_texture(_ace_spades)
-	$CardBase0/theCard.set_scale(Vector2(5.5, 5.5))
 	$CardBase1/theCard.set_texture(_ace_spades)
-	$CardBase1/theCard.set_scale(Vector2(5.5, 5.5))
 	$CardBase2/theCard.set_texture(_ace_spades)
-	$CardBase2/theCard.set_scale(Vector2(5.5, 5.5))
 	
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+
+func _on_Area2D2_mouse_entered():
+	$CardBase0/theCard.set_scale(Vector2(6, 6))
+	pass # Replace with function body.
+
+
+func _on_Area2D2_mouse_exited():
+	$CardBase0/theCard.set_scale(Vector2(5.5, 5.5))
+	pass # Replace with function body.
