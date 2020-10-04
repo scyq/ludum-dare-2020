@@ -1,9 +1,24 @@
-extends Node2D
+extends TextureButton
 
 
-func _on_mouse_exited():
-	set_scale(Vector2(1, 1))
+# Declare member variables here. Examples:
+# var a = 2
+# var b = "text"
 
 
-func _on_Area2D2_mouse_entered():
-	set_scale(Vector2(1.2, 1.2))
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+#func _process(delta):
+#	pass
+
+
+func _on_Card_mouse_entered():
+	$Card.set_scale(Vector2(5.8, 5.8))
+
+
+func _on_Card_mouse_exited():
+	$Card.set_scale(Vector2(5.5, 5.5))

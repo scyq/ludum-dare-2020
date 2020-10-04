@@ -1,5 +1,8 @@
 extends Node2D
 
+var card_dict = {
+
+}
 var _ace_diamonds = preload("res://Art/Cards/ace_diamonds.png")
 var _ace_clubs = preload("res://Art/Cards/ace_clubs.png")
 var _ace_hearts = preload("res://Art/Cards/ace_hearts.png")
@@ -55,6 +58,20 @@ var _king_spades = preload("res://Art/Cards/king_spades.png")
 var joker_pre = preload("res://Art/Cards/joker.png")
 var black_joker_pre = preload("res://Art/Cards/joker_white.png")
 
+var card0_info = {
+	"type" : null,
+	"number" : null
+}
+
+var card1_info = {
+	"type" : null,
+	"number" : null
+}
+
+var card2_info = {
+	"type" : null,
+	"number" : null
+}
 
 var rng = RandomNumberGenerator.new()
 
@@ -63,32 +80,134 @@ func _get_random_number_():
 	# 15 red joker
 	return rng.randi_range(1, 15)
 	
+# joker determined by number
 func _get_random_type_():
 	#	0 spades
 	#	1 hearts
 	#	2 clubs
 	#	3 diamonds
-	return rng.randi_range(0, 4)
+	return rng.randi_range(0, 3)
+	
+func _change_card_(number: int, type: int, card_id: int, texture):
+	if card_id == 0:
+		card0_info["number"] = number
+		if number > 13:
+			card0_info["type"] = 4
+		else:
+			card0_info["type"] = type
+		$CardBase0/Card.set_texture(texture)
+	elif card_id == 1:
+		card1_info["number"] = number
+		if number > 13:
+			card1_info["type"] = 4
+		else:
+			card1_info["type"] = type
+		$CardBase1/Card.set_texture(texture)
+	else:
+		card2_info["number"] = number
+		if number > 13:
+			card2_info["type"] = 4
+		else:
+			card2_info["type"] = type
+		$CardBase2/Card.set_texture(texture)
+	
+
+
+func _set_Card(number, type, card_id):
+	var search_name = null
+	var real_type = null
+	if type == 0:
+		real_type = "spades"
+	elif type == 1:
+		real_type = "hearts"
+	elif type == 2:
+		real_type = "clubs"
+	elif type == 3:
+		real_type = "diamonds"
+	else:
+		pass
+	
+	if number < 11 && number != 1:
+		var temp_number = number as String
+		search_name = "_" + temp_number + "_" + real_type
+	elif number == 1:
+		search_name = "_ace_" + real_type
+	elif number == 11:
+		search_name = "_jack_" + real_type
+	elif number == 12:
+		search_name = "_queen_" + real_type
+	elif number == 13:
+		search_name = "_king_" + real_type
+	elif number == 14:
+		search_name = "black_joker_pre"
+	elif number == 15:
+		search_name = "joker_pre"
+	_change_card_(number, type, card_id, card_dict[search_name])
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$CardBase0/theCard.set_texture(_ace_spades)
-	$CardBase1/theCard.set_texture(_ace_spades)
-	$CardBase2/theCard.set_texture(_ace_spades)
-	
+	rng.randomize()
+	card_dict["_ace_diamonds"] = _ace_diamonds
+	card_dict["_ace_clubs"] = _ace_clubs
+	card_dict["_ace_hearts"] = _ace_hearts
+	card_dict["_ace_spades"] = _ace_spades
+	card_dict["_2_diamonds"] = _2_diamonds
+	card_dict["_2_clubs"] = _2_clubs
+	card_dict["_2_hearts"] = _2_hearts
+	card_dict["_2_spades"] = _2_spades
+	card_dict["_3_diamonds"] = _3_diamonds
+	card_dict["_3_clubs"] = _3_clubs
+	card_dict["_3_hearts"] = _3_hearts
+	card_dict["_3_spades"] = _3_spades
+	card_dict["_4_diamonds"] = _4_diamonds
+	card_dict["_4_clubs"] = _4_clubs
+	card_dict["_4_hearts"] = _4_hearts
+	card_dict["_4_spades"] = _4_spades
+	card_dict["_5_diamonds"] = _5_diamonds
+	card_dict["_5_clubs"] = _5_clubs
+	card_dict["_5_hearts"] = _5_hearts
+	card_dict["_5_spades"] = _5_spades
+	card_dict["_6_diamonds"] = _6_diamonds
+	card_dict["_6_clubs"] = _6_clubs
+	card_dict["_6_hearts"] = _6_hearts
+	card_dict["_6_spades"] = _6_spades
+	card_dict["_7_diamonds"] = _7_diamonds
+	card_dict["_7_clubs"] = _7_clubs
+	card_dict["_7_hearts"] = _7_hearts
+	card_dict["_7_spades"] = _7_spades
+	card_dict["_8_diamonds"] = _8_diamonds
+	card_dict["_8_clubs"] = _8_clubs
+	card_dict["_8_hearts"] = _8_hearts
+	card_dict["_8_spades"] = _8_spades
+	card_dict["_9_diamonds"] = _9_diamonds
+	card_dict["_9_clubs"] = _9_clubs
+	card_dict["_9_hearts"] = _9_hearts
+	card_dict["_9_spades"] = _9_spades
+	card_dict["_10_diamonds"] = _10_diamonds
+	card_dict["_10_clubs"] = _10_clubs
+	card_dict["_10_hearts"] = _10_hearts
+	card_dict["_10_spades"] = _10_spades
+	card_dict["_jack_diamonds"] = _jack_diamonds
+	card_dict["_jack_clubs"] = _jack_clubs
+	card_dict["_jack_hearts"] = _jack_hearts
+	card_dict["_jack_spades"] = _jack_spades
+	card_dict["_queen_diamonds"] = _queen_diamonds
+	card_dict["_queen_clubs"] = _queen_clubs
+	card_dict["_queen_hearts"] = _queen_hearts
+	card_dict["_queen_spades"] = _queen_spades
+	card_dict["_king_diamonds"] = _king_diamonds
+	card_dict["_king_clubs"] = _king_clubs
+	card_dict["_king_hearts"] = _king_hearts
+	card_dict["_king_spades"] = _king_spades
+	card_dict["joker_pre"] = joker_pre
+	card_dict["black_joker_pre"] = black_joker_pre
+	_set_Card(_get_random_number_(), _get_random_type_(), 0)
+	_set_Card(_get_random_number_(), _get_random_type_(), 1)
+	_set_Card(_get_random_number_(), _get_random_type_(), 2)
 	
 	
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
 
-
-func _on_Area2D2_mouse_entered():
-	$CardBase0/theCard.set_scale(Vector2(6, 6))
-	pass # Replace with function body.
-
-
-func _on_Area2D2_mouse_exited():
-	$CardBase0/theCard.set_scale(Vector2(5.5, 5.5))
-	pass # Replace with function body.

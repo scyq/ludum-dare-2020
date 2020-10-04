@@ -3,9 +3,28 @@
 [ext_resource path="res://Art/Cards/2_clubs.png" type="Texture" id=1]
 [ext_resource path="res://Script/CardBase.gd" type="Script" id=2]
 
-[node name="CardBase" type="Node2D"]
+[node name="CardBase" type="TextureButton"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -1.0
+margin_top = 7.0
+margin_right = -1558.0
+margin_bottom = -585.0
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[node name="theCard" type="Sprite" parent="."]
-scale = Vector2( 5.5, 5.5 )
+[node name="Card" type="TextureRect" parent="."]
+margin_left = 151.881
+margin_top = 201.213
+margin_right = 211.881
+margin_bottom = 285.213
+rect_scale = Vector2( 5.5, 5.5 )
+rect_pivot_offset = Vector2( 30, 42 )
 texture = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="mouse_entered" from="Card" to="." method="_on_Card_mouse_entered"]
+[connection signal="mouse_exited" from="Card" to="." method="_on_Card_mouse_exited"]
