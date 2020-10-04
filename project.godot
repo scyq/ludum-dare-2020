@@ -15,7 +15,8 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Ludum Dare 2020"
+config/name="Involution"
+config/description="Break the Loop"
 run/main_scene="res://NodeAssets/MainMenu.tscn"
 config/icon="res://icon.png"
 

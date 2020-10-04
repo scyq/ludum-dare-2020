@@ -229,11 +229,28 @@ func _check_win():
 		return c0_number
 	else:
 		return -1
+		
+func _update_rank(highscore):
+	var score_file = "res://scores.dat"
+	var file = File.new()
+	file.open(score_file, File.WRITE)
+	file.store_64(highscore)
+	file.close()
+
+func _get_highest_():
+	var highest = null
+	var file = File.new()
+	if file.file_exists("res://scores.dat"):
+		file.open("res://scores.dat", File.READ)
+		highest = file.get_64()
+		file.close()
+	return highest
 
 func _after_press(current_num, current_type, card_id):
+	$SfClick.play()
 	var check_id = _check_win()
 	if check_id != -1:
-		if type_max > 3:
+		if type_max < 3:
 			$Counter.set_text("Still in Loop")
 			type_max += 1
 			_set_Card(_get_random_number_(), _get_random_type_(type_max), 0)
@@ -245,6 +262,13 @@ func _after_press(current_num, current_type, card_id):
 			$EndPanel/Scores.set_text("Tried Times : " + temp_cnt)
 			$EndPanel.visible = true
 			$Popup.play("Pop")
+			var temp_high = _get_highest_()
+			if temp_high == 0:
+				_update_rank(cnt)
+			else:
+				if cnt < temp_high:
+					_update_rank(cnt)
+			
 	else:
 		cnt += 1
 		var temp_cnt = cnt as String

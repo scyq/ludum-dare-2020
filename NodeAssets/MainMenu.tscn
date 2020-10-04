@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Art/BackGround/Light Hill.png" type="Texture" id=1]
 [ext_resource path="res://Script/MainMenu.gd" type="Script" id=2]
 [ext_resource path="res://Art/Font/HeartbitXX2Px.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Audio/bgm.wav" type="AudioStream" id=4]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://Art/Font/HeartbitXX2Px.ttf"
@@ -15,6 +16,10 @@ font_data = SubResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
 size = 240
+font_data = ExtResource( 3 )
+
+[sub_resource type="DynamicFont" id=4]
+size = 150
 font_data = ExtResource( 3 )
 
 [node name="MainMenu" type="Control"]
@@ -37,7 +42,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+[node name="BGM" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+autoplay = true
 
 [node name="Title" type="Label" parent="."]
 anchor_left = 0.5
@@ -93,5 +100,25 @@ __meta__ = {
 "_edit_lock_": true,
 "_edit_use_anchors_": false
 }
+
+[node name="Rank" type="Button" parent="."]
+anchor_left = 0.161
+anchor_top = 0.641
+anchor_right = 0.308
+anchor_bottom = 0.742
+margin_left = 470.731
+margin_top = 103.532
+margin_right = 590.491
+margin_bottom = 195.452
+rect_pivot_offset = Vector2( -50, 0 )
+custom_fonts/font = SubResource( 4 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Best"
+flat = true
+__meta__ = {
+"_edit_lock_": true,
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="StartBtn" to="." method="_on_StartBtn_pressed"]
 [connection signal="pressed" from="ExitBtn" to="." method="_on_ExitBtn_pressed"]
+[connection signal="pressed" from="Rank" to="." method="_on_Rank_pressed"]

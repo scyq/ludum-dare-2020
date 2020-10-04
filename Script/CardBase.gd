@@ -16,6 +16,7 @@ func _ready():
 
 
 func _on_Card_mouse_entered():
+	$SfSelect.play()
 	$Card.set_scale(Vector2(5.8, 5.8))
 
 
