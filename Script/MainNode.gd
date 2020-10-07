@@ -231,7 +231,7 @@ func _check_win():
 		return -1
 		
 func _update_rank(highscore):
-	var score_file = "res://scores.dat"
+	var score_file = "user://scores.dat"
 	var file = File.new()
 	file.open(score_file, File.WRITE)
 	file.store_64(highscore)
@@ -240,8 +240,8 @@ func _update_rank(highscore):
 func _get_highest_():
 	var highest = null
 	var file = File.new()
-	if file.file_exists("res://scores.dat"):
-		file.open("res://scores.dat", File.READ)
+	if file.file_exists("user://scores.dat"):
+		file.open("user://scores.dat", File.READ)
 		highest = file.get_64()
 		file.close()
 	return highest

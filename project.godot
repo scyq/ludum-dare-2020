@@ -19,6 +19,7 @@ config/name="Involution"
 config/description="Break the Loop"
 run/main_scene="res://NodeAssets/MainMenu.tscn"
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [display]
 

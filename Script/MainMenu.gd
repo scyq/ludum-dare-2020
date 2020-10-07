@@ -1,6 +1,6 @@
 extends Control
 var main_node = null
-var score_file_path = "res://scores.dat"
+var score_file_path = "user://scores.dat"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
